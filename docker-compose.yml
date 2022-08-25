@@ -1,0 +1,22 @@
+version: '2'
+
+services:
+  python:
+    build: ./opencv
+    container_name: OPEN_CV
+    volumes:
+      - ./JUPYTERNOTEBOOKS/:/arjunr
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - /tmp/.docker.xauth:/tmp/.docker.xauth
+    ports:
+      - "1234:1234"
+    command: jupyter lab --no-browser --ip=0.0.0.0 --port=1234 --allow-root
+
+    environment:
+      - JUPYTER_TOKEN=dlinano
+      - XAUTHORITY=/tmp/.docker.xauth
+      - DISPLAY=$DISPLAY
+
+    devices:
+      - /dev/video0:/dev/video0
+
